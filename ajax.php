@@ -41,3 +41,21 @@ if ($action == 'adduser' && !empty($_POST)) {
         exit();
     }
 }
+
+// getcountof function and getallusers action
+if($action == 'getallusers') {
+    $page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
+    $limit = 4;
+    $start = ($page - 1) * $limit;
+    $users = $obj -> getRow($start, $limit);
+
+    if (!empty($users)) {
+        $userlist = $users;
+    } else {
+        $userlist = [];
+    }
+    $total = $obj -> getCount();
+    $userArr = ['count' => $total, 'users' => $userlist];
+    echo json_encode($userlist);
+    exit();
+}

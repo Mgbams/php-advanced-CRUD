@@ -56,7 +56,7 @@ class User extends Database
     {
         $sql = "SELECT * FROM {$this->tableName} WHERE {$field} = :{$field}";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
+        $stmt->execute([":{$field}" => $value]);
 
         if ($stmt->rowCount() > 0) {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -74,9 +74,9 @@ class User extends Database
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
 
-        $results = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return $results['pcount'];
+        return $result['pcount'];
     }
 
     // function to upload photo
@@ -85,11 +85,12 @@ class User extends Database
         if (!empty($file)) {
             $fileTempPath = $file['tmp_name'];
             $fileName = $file['name'];
+            $fileSize = $file['size'];
             $fileType = $file['type'];
             $fileNameCmps = explode('.', $fileName);
             $fileExtension = strtolower(end($fileNameCmps));
             $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-            $allowedExtensions = ["png", "jpg", "jpeg"];
+            $allowedExtensions = ["png", "jpg", "jpeg", "gif"];
 
             if (in_array($fileExtension, $allowedExtensions)) {
                 $uploadFileDir = getcwd() . '/uploads/';

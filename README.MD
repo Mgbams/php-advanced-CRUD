@@ -291,4 +291,8 @@ echo $content;
 8. <i class="fas fa-user-alt"></i>
 ```
 
+### Fixing phpstorm unresolved function or method $() Or $.ajax() not a function
+Visit this link
+[Stackoverflow](https://stackoverflow.com/questions/21616683/phpstorm-unresolved-function-or-method)
+
 

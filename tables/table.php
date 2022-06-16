@@ -9,7 +9,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
+    <!--<tr>
         <td>picture1</td>
         <td>Mark</td>
         <td>Otto@demo.com</td>
@@ -23,6 +23,6 @@
             </a>
             <a href="#" class="mr-3 deleteuser" title="Delete"><i class="fas fa-trash-alt text-danger"></i></a>
         </td>
-    </tr>
+    </tr>-->
     </tbody>
 </table>
