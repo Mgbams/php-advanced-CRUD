@@ -66,6 +66,10 @@ function getusers() {
           userslist += getuserrow(user);
         });
         $("#usertable tbody").html(userslist);
+        let totalUsers = rows.count;
+        let totalPages = Math.ceil(parseInt(totalUsers) / 4);
+        const currentPages = $("#currentpage").val();
+        pagination(totalPages, currentPages);
       }
     },
     error: function (request, error) {
@@ -107,7 +111,15 @@ $(document).ready(function () {
       },
     });
   });
-
+   // onclick event for pagination
+    $(document).on("click", "ul.pagination li a", function (event) {
+        event.preventDefault();
+        const  pageNum = $(this).data("page");
+        $("#currentpage").val(pageNum);
+        getusers();
+        $(this).parent().siblings().removeClass("active");
+        $(this).parent().addClass("active");
+    })
   // calling getusers() function
   getusers();
 });

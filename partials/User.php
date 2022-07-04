@@ -105,6 +105,35 @@ class User extends Database
 
 
     // function to update
+    public function update($data, $id) {
+        if(!empty($data)) {
+            $fields = "";
+            $x = 1;
+            $fieldsCount = count($data);
+
+            foreach ($data as $field =>$value) {
+                $fields .= "{$field}=:{$field}";
+
+                if ($x < $fieldsCount ) {
+                    $fields .= ",";
+                }
+                $x++;
+            }
+        }
+        $sql = "UPDATE {$this->tableName} SET {$fields} WHERE id =:id";
+        $stmt = $this->conn->prepare($sql); // to avoid sql injections
+        try {
+            $this->conn->beginTransaction();
+
+            $data['id'] = $id;
+            $stmt->execute($data);
+
+            $this->conn->commit();
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            $this->conn->rollBack();
+        }
+    }
 
     // function to delete
 
